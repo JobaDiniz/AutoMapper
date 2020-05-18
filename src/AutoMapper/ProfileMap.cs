@@ -249,8 +249,10 @@ namespace AutoMapper
         {
             TypeMap = typeMap;
             MemberExpression = memberExpression;
+            Variable = Expression.Variable(memberExpression.Body.Type, string.Join("", memberExpression.GetMembersChain().Select(m => m.Name)));
         }
         public TypeMap TypeMap { get; }
         public LambdaExpression MemberExpression { get; }
+        public ParameterExpression Variable { get; }
     }
 }

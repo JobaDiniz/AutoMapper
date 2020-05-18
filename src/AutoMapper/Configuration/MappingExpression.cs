@@ -201,10 +201,10 @@ namespace AutoMapper.Configuration
 
         private void IncludeMembersCore(LambdaExpression[] memberExpressions)
         {
-            foreach(var member in memberExpressions)
+            foreach(var member in memberExpressions.Select(member => MemberVisitor.GetMemberPath(member).FirstOrDefault())
+                .Where(member => member != null && member.DeclaringType.IsAssignableFrom(SourceType)))
             {
-                member.EnsureMemberPath(nameof(memberExpressions));
-                ForSourceMemberCore(new MemberPath(member).First, o => o.DoNotValidate());
+                ForSourceMemberCore(member, o => o.DoNotValidate());
             }
             TypeMapActions.Add(tm => tm.IncludedMembers = memberExpressions);
         }

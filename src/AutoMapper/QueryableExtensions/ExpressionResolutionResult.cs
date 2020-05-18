@@ -8,10 +8,10 @@ namespace AutoMapper.QueryableExtensions
         public Expression ResolutionExpression { get; }
         public Type Type { get; }
 
-        public ExpressionResolutionResult(Expression resolutionExpression, Type type)
+        public ExpressionResolutionResult(Expression resolutionExpression, Type type = null)
         {
             ResolutionExpression = resolutionExpression;
-            Type = type;
+            Type = type ?? resolutionExpression.Type;
         }
     }
 }
